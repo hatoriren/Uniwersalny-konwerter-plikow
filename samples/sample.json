@@ -1,0 +1,24 @@
+[
+  {
+    "imię": "Zażółć",
+    "nazwisko": "Gęślą",
+    "miasto": "Jaźń",
+    "wiek": 21,
+    "aktywny": true,
+    "uwagi": ""
+  },
+  {
+    "imię": "Anna",
+    "nazwisko": "Kowalska",
+    "miasto": "Kraków",
+    "wiek": 23,
+    "aktywny": false,
+    "uwagi": "studentka"
+  },
+  {
+    "imię": "Łucja",
+    "nazwisko": "Wiśniewska",
+    "miasto": "Wrocław",
+    "aktywny": true
+  }
+]

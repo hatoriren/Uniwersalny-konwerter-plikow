@@ -1,0 +1,10 @@
+Uniwersalny konwerter plików
+
+To przykładowy dokument tekstowy w kodowaniu UTF-8.
+Zawiera polskie znaki: ąćęłńóśźż oraz wielolinijkowy akapit,
+który powinien pozostać jednym akapitem z łamaniem wiersza.
+
+Drugi akapit jest oddzielony pustą linią.
+Konwerter zachowuje kolejność akapitów oraz polskie znaki.
+
+Trzeci akapit: zażółć gęślą jaźń.
