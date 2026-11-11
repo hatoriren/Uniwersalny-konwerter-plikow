@@ -166,6 +166,17 @@ def _shorten_name(name: str, limit: int = 34) -> str:
     return f"{name[:side]}…{name[-side:]}"
 
 
+def _balance_button_text(button: ctk.CTkButton, lift: int = 3) -> ctk.CTkButton:
+    """Shift button caption up a little — Hiragino metrics leave extra top gap."""
+    label = getattr(button, "_text_label", None)
+    if label is not None:
+        try:
+            label.grid_configure(pady=(0, lift))
+        except tk.TclError:
+            pass
+    return button
+
+
 class ConflictDialog(ctk.CTkToplevel):
     def __init__(self, master: ctk.CTk, target: Path) -> None:
         super().__init__(master, fg_color=BG)
@@ -218,43 +229,49 @@ class ConflictDialog(ctk.CTkToplevel):
         buttons.grid(row=3, column=0, sticky="ew", padx=22, pady=(0, 20))
         buttons.grid_columnconfigure(0, weight=1)
 
-        ctk.CTkButton(
-            buttons,
-            text="Anuluj",
-            width=90,
-            height=36,
-            corner_radius=10,
-            fg_color="transparent",
-            hover_color=SOFT,
-            text_color=MUTED,
-            font=ctk.CTkFont(family=family, size=13),
-            command=self._cancel,
+        _balance_button_text(
+            ctk.CTkButton(
+                buttons,
+                text="Anuluj",
+                width=90,
+                height=36,
+                corner_radius=10,
+                fg_color="transparent",
+                hover_color=SOFT,
+                text_color=MUTED,
+                font=ctk.CTkFont(family=family, size=13),
+                command=self._cancel,
+            )
         ).grid(row=0, column=0, sticky="w")
 
-        ctk.CTkButton(
-            buttons,
-            text="Zapisz jako nową",
-            width=150,
-            height=36,
-            corner_radius=10,
-            fg_color=SECONDARY,
-            hover_color=SECONDARY_HOVER,
-            text_color=TEXT,
-            font=ctk.CTkFont(family=family, size=13),
-            command=lambda: self._choose("unique"),
+        _balance_button_text(
+            ctk.CTkButton(
+                buttons,
+                text="Zapisz jako nową",
+                width=150,
+                height=36,
+                corner_radius=10,
+                fg_color=SECONDARY,
+                hover_color=SECONDARY_HOVER,
+                text_color=TEXT,
+                font=ctk.CTkFont(family=family, size=13),
+                command=lambda: self._choose("unique"),
+            )
         ).grid(row=0, column=1, padx=(0, 8))
 
-        ctk.CTkButton(
-            buttons,
-            text="Nadpisz",
-            width=110,
-            height=36,
-            corner_radius=10,
-            fg_color=ACCENT,
-            hover_color=ACCENT_HOVER,
-            text_color="#ffffff",
-            font=ctk.CTkFont(family=family, size=13, weight="bold"),
-            command=lambda: self._choose("overwrite"),
+        _balance_button_text(
+            ctk.CTkButton(
+                buttons,
+                text="Nadpisz",
+                width=110,
+                height=36,
+                corner_radius=10,
+                fg_color=ACCENT,
+                hover_color=ACCENT_HOVER,
+                text_color="#ffffff",
+                font=ctk.CTkFont(family=family, size=13, weight="bold"),
+                command=lambda: self._choose("overwrite"),
+            )
         ).grid(row=0, column=2)
 
         self.update_idletasks()
@@ -504,34 +521,38 @@ class ConverterApp(ctk.CTk):
         buttons = ctk.CTkFrame(drop, fg_color="transparent")
         buttons.grid(row=0, column=1, sticky="e", padx=(0, 14), pady=14)
 
-        self.choose_file_button = ctk.CTkButton(
-            buttons,
-            text="Wybierz plik",
-            width=116,
-            height=36,
-            corner_radius=10,
-            fg_color=BUTTON,
-            hover_color=BUTTON_HOVER,
-            text_color=BUTTON_TEXT,
-            font=self.font_button,
-            command=self._choose_source,
+        self.choose_file_button = _balance_button_text(
+            ctk.CTkButton(
+                buttons,
+                text="Wybierz plik",
+                width=116,
+                height=36,
+                corner_radius=10,
+                fg_color=BUTTON,
+                hover_color=BUTTON_HOVER,
+                text_color=BUTTON_TEXT,
+                font=self.font_button,
+                command=self._choose_source,
+            )
         )
         self.choose_file_button.grid(row=0, column=0)
 
-        self.open_input_button = ctk.CTkButton(
-            buttons,
-            text="Otwórz folder",
-            width=112,
-            height=36,
-            corner_radius=10,
-            fg_color="transparent",
-            hover_color=CHIP,
-            border_width=1,
-            border_color=BORDER,
-            text_color=TEXT,
-            font=self.font_small,
-            state="disabled",
-            command=self._open_input_folder,
+        self.open_input_button = _balance_button_text(
+            ctk.CTkButton(
+                buttons,
+                text="Otwórz folder",
+                width=112,
+                height=36,
+                corner_radius=10,
+                fg_color="transparent",
+                hover_color=CHIP,
+                border_width=1,
+                border_color=BORDER,
+                text_color=TEXT,
+                font=self.font_small,
+                state="disabled",
+                command=self._open_input_folder,
+            )
         )
         self.open_input_button.grid(row=0, column=1, padx=(8, 0))
 
@@ -608,34 +629,38 @@ class ConverterApp(ctk.CTk):
         )
         self.output_entry.grid(row=0, column=0, sticky="ew")
 
-        self.output_browse_button = ctk.CTkButton(
-            folder_row,
-            text="Zmień",
-            width=68,
-            height=38,
-            corner_radius=10,
-            fg_color=SECONDARY,
-            hover_color=SECONDARY_HOVER,
-            text_color=TEXT,
-            font=self.font_small,
-            command=self._choose_output,
+        self.output_browse_button = _balance_button_text(
+            ctk.CTkButton(
+                folder_row,
+                text="Zmień",
+                width=68,
+                height=38,
+                corner_radius=10,
+                fg_color=SECONDARY,
+                hover_color=SECONDARY_HOVER,
+                text_color=TEXT,
+                font=self.font_small,
+                command=self._choose_output,
+            )
         )
         self.output_browse_button.grid(row=0, column=1, padx=(8, 0))
 
-        self.output_open_button = ctk.CTkButton(
-            folder_row,
-            text="Otwórz",
-            width=76,
-            height=38,
-            corner_radius=10,
-            fg_color="transparent",
-            hover_color=CHIP,
-            border_width=1,
-            border_color=BORDER,
-            text_color=TEXT,
-            font=self.font_small,
-            state="disabled",
-            command=self._open_output_folder,
+        self.output_open_button = _balance_button_text(
+            ctk.CTkButton(
+                folder_row,
+                text="Otwórz",
+                width=76,
+                height=38,
+                corner_radius=10,
+                fg_color="transparent",
+                hover_color=CHIP,
+                border_width=1,
+                border_color=BORDER,
+                text_color=TEXT,
+                font=self.font_small,
+                state="disabled",
+                command=self._open_output_folder,
+            )
         )
         self.output_open_button.grid(row=0, column=2, padx=(8, 0))
 
@@ -692,20 +717,23 @@ class ConverterApp(ctk.CTk):
         self.name_var.trace_add("write", lambda *_: self._update_preview())
 
     def _build_convert_button(self, parent: ctk.CTkFrame) -> None:
-        self.convert_button = ctk.CTkButton(
-            parent,
-            text="Konwertuj teraz",
-            height=50,
-            corner_radius=14,
-            border_width=1,
-            border_color=("#e9b6c8", "#c98ba1"),
-            fg_color=BUTTON,
-            hover_color=BUTTON_HOVER,
-            text_color=BUTTON_TEXT,
-            font=ctk.CTkFont(family=_font_family()[0], size=16, weight="bold"),
-            text_color_disabled=BUTTON_TEXT_DISABLED,
-            state="disabled",
-            command=self._start_conversion,
+        self.convert_button = _balance_button_text(
+            ctk.CTkButton(
+                parent,
+                text="Konwertuj teraz",
+                height=50,
+                corner_radius=14,
+                border_width=1,
+                border_color=("#e9b6c8", "#c98ba1"),
+                fg_color=BUTTON,
+                hover_color=BUTTON_HOVER,
+                text_color=BUTTON_TEXT,
+                font=ctk.CTkFont(family=_font_family()[0], size=16, weight="bold"),
+                text_color_disabled=BUTTON_TEXT_DISABLED,
+                state="disabled",
+                command=self._start_conversion,
+            ),
+            lift=4,
         )
         self.convert_button.grid(row=2, column=0, sticky="ew", pady=(16, 0))
 
@@ -743,17 +771,6 @@ class ConverterApp(ctk.CTk):
             anchor="w",
         ).grid(row=0, column=1, sticky="w")
 
-        ctk.CTkLabel(
-            header,
-            text="K",
-            width=30,
-            height=30,
-            corner_radius=6,
-            fg_color=ACCENT,
-            text_color=BUTTON_TEXT,
-            font=ctk.CTkFont(family=_font_family()[1], size=16, weight="bold"),
-        ).grid(row=0, column=2, sticky="e")
-
         self.status_title = ctk.CTkLabel(
             self.status_card,
             text="No to zaczynamy!",
@@ -786,42 +803,48 @@ class ConverterApp(ctk.CTk):
         self.result_actions.grid(row=4, column=0, sticky="ew", padx=20, pady=(0, 18))
         self.result_actions.grid_columnconfigure((0, 1), weight=1)
 
-        ctk.CTkButton(
-            self.result_actions,
-            text="Otwórz wynik",
-            height=38,
-            corner_radius=10,
-            fg_color=BUTTON,
-            hover_color=BUTTON_HOVER,
-            text_color=BUTTON_TEXT,
-            font=self.font_button,
-            command=self._open_result,
+        _balance_button_text(
+            ctk.CTkButton(
+                self.result_actions,
+                text="Otwórz wynik",
+                height=38,
+                corner_radius=10,
+                fg_color=BUTTON,
+                hover_color=BUTTON_HOVER,
+                text_color=BUTTON_TEXT,
+                font=self.font_button,
+                command=self._open_result,
+            )
         ).grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 8))
 
-        ctk.CTkButton(
-            self.result_actions,
-            text="Pokaż w folderze",
-            height=34,
-            corner_radius=10,
-            fg_color=SECONDARY,
-            hover_color=SECONDARY_HOVER,
-            text_color=TEXT,
-            font=self.font_small,
-            command=self._reveal_result,
+        _balance_button_text(
+            ctk.CTkButton(
+                self.result_actions,
+                text="Pokaż w folderze",
+                height=34,
+                corner_radius=10,
+                fg_color=SECONDARY,
+                hover_color=SECONDARY_HOVER,
+                text_color=TEXT,
+                font=self.font_small,
+                command=self._reveal_result,
+            )
         ).grid(row=1, column=0, sticky="ew", padx=(0, 4))
 
-        ctk.CTkButton(
-            self.result_actions,
-            text="Otwórz folder",
-            height=34,
-            corner_radius=10,
-            fg_color="transparent",
-            hover_color=CHIP,
-            border_width=1,
-            border_color=BORDER,
-            text_color=TEXT,
-            font=self.font_small,
-            command=self._open_result_folder,
+        _balance_button_text(
+            ctk.CTkButton(
+                self.result_actions,
+                text="Otwórz folder",
+                height=34,
+                corner_radius=10,
+                fg_color="transparent",
+                hover_color=CHIP,
+                border_width=1,
+                border_color=BORDER,
+                text_color=TEXT,
+                font=self.font_small,
+                command=self._open_result_folder,
+            )
         ).grid(row=1, column=1, sticky="ew", padx=(4, 0))
         self.result_actions.grid_remove()
 
@@ -916,19 +939,22 @@ class ConverterApp(ctk.CTk):
             anchor="e",
         ).grid(row=0, column=1, sticky="e", padx=(12, 12))
 
-        ctk.CTkButton(
-            footer,
-            text="Dziennik",
-            width=84,
-            height=28,
-            corner_radius=8,
-            fg_color="transparent",
-            hover_color=CHIP,
-            border_width=1,
-            border_color=BORDER,
-            text_color=MUTED,
-            font=self.font_tiny,
-            command=self._open_log,
+        _balance_button_text(
+            ctk.CTkButton(
+                footer,
+                text="Dziennik",
+                width=84,
+                height=28,
+                corner_radius=8,
+                fg_color="transparent",
+                hover_color=CHIP,
+                border_width=1,
+                border_color=BORDER,
+                text_color=MUTED,
+                font=self.font_tiny,
+                command=self._open_log,
+            ),
+            lift=2,
         ).grid(row=0, column=2, sticky="e")
 
     def _image(self, filename: str, size: tuple[int, int]):
