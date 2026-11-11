@@ -1,10 +1,14 @@
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .idea/
+.vscode/
 logs/
+output/
 build/
 dist/
 *.egg-info/
 .DS_Store
+images_examples/

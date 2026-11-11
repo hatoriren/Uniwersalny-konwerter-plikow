@@ -1,12 +1,17 @@
 # Uniwersalny konwerter plików
 
-Aplikacja desktopowa w Pythonie 3 z interfejsem Tkinter/ttk, która konwertuje pliki
-CSV, JSON, TXT, DOCX, ODT i PDF. Użytkownik wybiera plik wejściowy, katalog zapisu oraz
-format docelowy; lista formatów jest ograniczona do rzeczywiście obsługiwanych par.
+## Cel
+
+Aplikacja desktopowa w Pythonie 3 z interfejsem CustomTkinter (na bazie Tkinter),
+która konwertuje pliki CSV, JSON, TXT, DOCX, ODT i PDF. Użytkownik wybiera plik
+wejściowy, katalog zapisu oraz format docelowy; lista formatów jest ograniczona
+do rzeczywiście obsługiwanych par. Dostępny jest też tryb CLI.
 
 Projekt zaliczeniowy z przedmiotu **Programowanie V** (Projekt 1).
 
 **Autor:** Anastasiia Nerestenko
+
+Historia zmian: [`CHANGELOG.md`](CHANGELOG.md) oraz repozytorium Git.
 
 ## Funkcje
 
@@ -255,13 +260,16 @@ wynikami konwersji danych przykładowych i mogą służyć do szybkiego testu gr
 │       ├── data.py             # CSV ↔ JSON
 │       ├── text.py             # TXT ↔ DOCX/ODT
 │       └── office.py           # DOCX/ODT ↔ PDF/ODT/DOCX
-├── images/                     # ilustracje sakury (oryginały i wersje _small)
-├── samples/                    # dane testowe
+├── images/                     # ilustracje GUI (*_small.png)
+├── samples/                    # dane testowe (min. 3 reprezentatywne)
 ├── tests/                      # testy pytest
+├── TEST_REPORT.md              # raport testów
+├── CHANGELOG.md                # dziennik zmian
 ├── requirements.txt
 ├── requirements-dev.txt
 └── pyproject.toml
 ```
+
 
 ## Znane ograniczenia
 
@@ -292,9 +300,10 @@ Wykorzystane biblioteki i narzędzia: Python 3, Tkinter, CustomTkinter, Pillow,
 python-docx, odfpy, LibreOffice, pytest.
 
 Ilustracje sakury i kota zostały dostarczone przez autorkę projektu. Interfejs korzysta
-z pomniejszonych kopii `images/*_small.png`, aby nie obciążać pamięci dużymi plikami.
+wyłącznie z lekkich plików `images/*_small.png` (bez dużych oryginałów w pakiecie).
 
-**Ujawnienie AI:** podczas tworzenia projektu korzystano z asystenta AI opencode
-(model `deepseek-flash`) do wygenerowania szkieletu kodu, testów i dokumentacji.
-Kod został uruchomiony i zweryfikowany testami; autor rozumie działanie rejestru,
-konwerterów, walidacji i obsługi wątku w GUI.
+**Ujawnienie AI:** podczas tworzenia projektu korzystano z asystentów AI
+(m.in. Cursor oraz wcześniej opencode / `deepseek-flash`) do wsparcia przy
+szkielecie kodu, refaktorze GUI, testach i dokumentacji. Kod został uruchomiony
+i zweryfikowany testami (`pytest`); autorka rozumie działanie rejestru konwerterów,
+walidacji, obsługi błędów, LibreOffice oraz wątku roboczego w GUI.

@@ -2,7 +2,7 @@
 
 Projekt: **Uniwersalny konwerter plików**
 Data: 2026-10-21
-Autor: Anastasiia Nereschenko
+Autor: Anastasiia Nerestenko
 
 ## Środowisko
 
